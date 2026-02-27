@@ -9,18 +9,30 @@ public class PalindromeCheckerApp {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter a word to check: ");
-        String original = scanner.nextLine();
+        String input = scanner.nextLine();
 
-        String reversed = "";
+        char[] characters = input.toCharArray();
 
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        int left = 0;
+        int right = characters.length - 1;
+
+        boolean isPalindrome = true;
+
+        while (left < right) {
+
+            if (characters[left] != characters[right]) {
+                isPalindrome = false;
+                break;
+            }
+
+            left++;
+            right--;
         }
 
-        if (original.equals(reversed)) {
-            System.out.println("Result: " + original + " is a Palindrome");
+        if (isPalindrome) {
+            System.out.println("Result: " + input + " is a Palindrome");
         } else {
-            System.out.println("Result: " + original + " is NOT a Palindrome");
+            System.out.println("Result: " + input + " is NOT a Palindrome");
         }
 
         scanner.close();
