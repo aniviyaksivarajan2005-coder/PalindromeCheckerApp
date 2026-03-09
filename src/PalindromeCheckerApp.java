@@ -2,56 +2,15 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
-    static class Node {
-        char data;
-        Node next;
+    public static boolean isPalindromeRecursive(String str, int start, int end) {
 
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
-    public static Node reverse(Node head) {
-        Node prev = null;
-        Node current = head;
-        Node next;
-
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-
-        return prev;
-    }
-
-    public static boolean isPalindrome(Node head) {
-
-        if (head == null || head.next == null)
+        if (start >= end)
             return true;
 
-        Node slow = head;
-        Node fast = head;
+        if (str.charAt(start) != str.charAt(end))
+            return false;
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
-
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data)
-                return false;
-
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
-        }
-
-        return true;
+        return isPalindromeRecursive(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
@@ -63,23 +22,7 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word: ");
         String input = scanner.nextLine();
 
-        Node head = null;
-        Node tail = null;
-
-        for (int i = 0; i < input.length(); i++) {
-
-            Node newNode = new Node(input.charAt(i));
-
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-
-        boolean result = isPalindrome(head);
+        boolean result = isPalindromeRecursive(input, 0, input.length() - 1);
 
         if (result)
             System.out.println("Result: " + input + " is a Palindrome");
