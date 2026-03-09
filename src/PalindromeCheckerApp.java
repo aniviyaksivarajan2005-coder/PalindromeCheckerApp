@@ -11,14 +11,25 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word: ");
         String input = scanner.nextLine();
 
-        PalindromeChecker checker = new PalindromeChecker();
+        System.out.println("Choose Strategy:");
+        System.out.println("1. Stack Strategy");
+        System.out.println("2. Deque Strategy");
 
-        boolean result = checker.checkPalindrome(input);
+        int choice = scanner.nextInt();
+
+        PalindromeStrategy strategy;
+
+        if (choice == 1)
+            strategy = new StackStrategy();
+        else
+            strategy = new DequeStrategy();
+
+        boolean result = strategy.checkPalindrome(input);
 
         if (result)
-            System.out.println("Result: " + input + " is a Palindrome");
+            System.out.println(input + " is a Palindrome");
         else
-            System.out.println("Result: " + input + " is NOT a Palindrome");
+            System.out.println(input + " is NOT a Palindrome");
 
         scanner.close();
     }
