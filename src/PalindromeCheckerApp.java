@@ -11,25 +11,31 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a word: ");
         String input = scanner.nextLine();
 
-        System.out.println("Choose Strategy:");
-        System.out.println("1. Stack Strategy");
-        System.out.println("2. Deque Strategy");
+        PalindromeStrategy stackStrategy = new StackStrategy();
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
 
-        int choice = scanner.nextInt();
+        long startTime;
+        long endTime;
 
-        PalindromeStrategy strategy;
+        // Stack Strategy Timing
+        startTime = System.nanoTime();
+        boolean stackResult = stackStrategy.checkPalindrome(input);
+        endTime = System.nanoTime();
+        long stackTime = endTime - startTime;
 
-        if (choice == 1)
-            strategy = new StackStrategy();
-        else
-            strategy = new DequeStrategy();
+        // Deque Strategy Timing
+        startTime = System.nanoTime();
+        boolean dequeResult = dequeStrategy.checkPalindrome(input);
+        endTime = System.nanoTime();
+        long dequeTime = endTime - startTime;
 
-        boolean result = strategy.checkPalindrome(input);
+        System.out.println("\nResults:");
 
-        if (result)
-            System.out.println(input + " is a Palindrome");
-        else
-            System.out.println(input + " is NOT a Palindrome");
+        System.out.println("Stack Strategy Result: " + stackResult);
+        System.out.println("Stack Execution Time: " + stackTime + " ns");
+
+        System.out.println("\nDeque Strategy Result: " + dequeResult);
+        System.out.println("Deque Execution Time: " + dequeTime + " ns");
 
         scanner.close();
     }
